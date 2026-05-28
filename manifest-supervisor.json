@@ -24,20 +24,13 @@
       "purpose": "any maskable"
     }
   ],
-  "screenshots": [],
   "categories": ["productivity", "utilities"],
   "shortcuts": [
     {
-      "name": "Supervisor",
-      "short_name": "Supervisor",
-      "description": "Generar QR de asistencia",
+      "name": "Generar QR",
+      "short_name": "QR",
+      "description": "Abrir generador de QR",
       "url": "./supervisor.html?supervisor=pymib-supervisor"
-    },
-    {
-      "name": "Trabajador",
-      "short_name": "Registrar",
-      "description": "Registrar asistencia",
-      "url": "./worker.html?worker=1"
     }
   ]
 }

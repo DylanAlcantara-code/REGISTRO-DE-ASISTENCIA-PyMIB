@@ -7,7 +7,7 @@
  * ⚙️  REPLACE THIS URL with your deployed Google Apps Script Web App URL
  *    After deploying apps-script.gs, paste the URL here:
  */
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1Ouv3Fzyw72Wz9r7U7leYpgVqnXvA7h3LuSYYjgKB2ELtgTyF-w4mmLap7Y3z9Nu-/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4SJ-b_hGhTLwjUnwubSnleFcRAr4Rmnyj5osqe1R2SaOxuSdxlgWvj9nXIaLbhlPy/exec';
 
 const SYNC_INTERVAL_MS = 30_000; // 30 seconds
 

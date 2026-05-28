@@ -41,10 +41,11 @@ function openInitialRoute() {
   const params = new URLSearchParams(window.location.search);
   const requestedSupervisor = params.get('supervisor') || params.get('admin');
   const role = params.get('role');
+  const pageName = window.location.pathname.split('/').pop().toLowerCase();
   const workerMode = params.has('worker') || params.has('trabajador') || role === 'worker';
   const qrPayload = params.get('qr');
 
-  if (requestedSupervisor === SUPERVISOR_ACCESS_KEY) {
+  if (requestedSupervisor === SUPERVISOR_ACCESS_KEY || pageName === 'supervisor.html') {
     selectRole('supervisor');
     return;
   }
@@ -59,7 +60,7 @@ function openInitialRoute() {
     showToast('QR expirado o invalido. Escanea uno nuevo.', 'error', 5000);
   }
 
-  if (workerMode || !requestedSupervisor) {
+  if (workerMode || pageName === 'worker.html' || !requestedSupervisor) {
     selectRole('worker');
     return;
   }
@@ -79,6 +80,7 @@ function selectRole(role, options = {}) {
   } else if (role === 'worker') {
     document.getElementById('worker-view').classList.remove('hidden');
     currentView = 'worker';
+    setTimeout(() => showInstallBanner(), 800);
     if (options.startCamera !== false) {
       // Start scanner after short delay (let DOM render)
       setTimeout(() => startScanner(), 300);
@@ -99,7 +101,8 @@ function goBack() {
 
   hideAllViews();
   document.getElementById('role-selector').classList.add('hidden');
-  selectRole('worker');
+  const pageName = window.location.pathname.split('/').pop().toLowerCase();
+  selectRole(pageName === 'supervisor.html' ? 'supervisor' : 'worker');
 }
 
 function hideAllViews() {
@@ -336,7 +339,7 @@ let deferredInstallPrompt = null;
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
-  if (currentView === 'supervisor') showInstallBanner();
+  if (currentView === 'supervisor' || currentView === 'worker') showInstallBanner();
 });
 
 function showInstallBanner() {
@@ -347,10 +350,11 @@ function showInstallBanner() {
   const banner = document.createElement('div');
   banner.id        = 'pwa-banner';
   banner.className = 'pwa-banner';
+  const installName = currentView === 'supervisor' ? 'PyMIB Supervisor' : 'PyMIB Trabajador';
   banner.innerHTML = `
     <div class="pwa-banner-icon">📲</div>
     <div class="pwa-banner-text">
-      <strong>INSTALAR PyMIB</strong>
+      <strong>INSTALAR ${installName}</strong>
       <span>Funciona sin internet · Acceso rápido</span>
     </div>
     <div class="pwa-banner-btns">

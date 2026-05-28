@@ -144,7 +144,7 @@ function validateQRPayload(raw) {
 }
 
 function buildWorkerQRUrl(data) {
-  const url = new URL(window.location.href);
+  const url = new URL('worker.html', window.location.href);
   url.hash = '';
   url.search = '';
   url.searchParams.set('worker', '1');

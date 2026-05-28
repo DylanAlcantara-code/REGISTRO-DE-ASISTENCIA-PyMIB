@@ -1,9 +1,9 @@
 {
-  "id": "./supervisor.html",
-  "name": "PyMIB Supervisor",
-  "short_name": "Supervisor",
-  "description": "Generador de QR de asistencia para supervisores PyMIB",
-  "start_url": "./supervisor.html?supervisor=pymib-supervisor",
+  "id": "./worker.html",
+  "name": "PyMIB Trabajador",
+  "short_name": "Trabajador",
+  "description": "Registro de asistencia para trabajadores PyMIB",
+  "start_url": "./worker.html?worker=1",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0a0c0f",
@@ -24,19 +24,12 @@
       "purpose": "any maskable"
     }
   ],
-  "screenshots": [],
   "categories": ["productivity", "utilities"],
   "shortcuts": [
     {
-      "name": "Supervisor",
-      "short_name": "Supervisor",
-      "description": "Generar QR de asistencia",
-      "url": "./supervisor.html?supervisor=pymib-supervisor"
-    },
-    {
-      "name": "Trabajador",
+      "name": "Registrar asistencia",
       "short_name": "Registrar",
-      "description": "Registrar asistencia",
+      "description": "Abrir escaner de QR",
       "url": "./worker.html?worker=1"
     }
   ]

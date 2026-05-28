@@ -3,12 +3,14 @@
 //  PyMIB Attendance System
 // ═══════════════════════════════════════
 
-const CACHE_NAME = 'pymib-attendance-v2';
+const CACHE_NAME = 'pymib-attendance-v5';
 
 // Files to cache for full offline support
 const STATIC_ASSETS = [
   './',
   './index.html',
+  './supervisor.html',
+  './worker.html',
   './styles.css',
   './app.js',
   './qr.js',
@@ -16,12 +18,14 @@ const STATIC_ASSETS = [
   './db.js',
   './sync.js',
   './manifest.json',
+  './manifest-supervisor.json',
+  './manifest-worker.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/pymib-logo.png',
+  './vendor/qrcode.min.js',
+  './vendor/html5-qrcode.min.js',
   'https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600;700&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js',
-  'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js'
 ];
 
 // ── INSTALL ───────────────────────────
@@ -114,6 +118,13 @@ self.addEventListener('fetch', (event) => {
           .catch(() => {
             // Offline fallback for navigation requests
             if (event.request.mode === 'navigate') {
+              const url = new URL(event.request.url);
+              if (url.pathname.endsWith('/worker.html')) {
+                return caches.match('./worker.html');
+              }
+              if (url.pathname.endsWith('/supervisor.html')) {
+                return caches.match('./supervisor.html');
+              }
               return caches.match('./index.html');
             }
             return new Response('Offline', { status: 503 });
